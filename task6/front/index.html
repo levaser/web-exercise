@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <section style="">
+        <div class="content-block flex-item-3" style="margin: auto; margin-top: 2%;" id="form">
+            <h2>Форма</h2>
+            <form action="/ " method="post">
+                <label for="name">ФИО:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="number">Телефон:</label><br>
+                <input type="tel" id="number" name="number"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="birthday" name="birthday">День рождения:</label><br>
+                <input type="date" id="birthday" name="birthday"><br>
+                <label>Пол:</label><br>
+                <input type="radio" name="sex">Муж.<br>
+                <input type="radio" name="sex">Жен.<br>
+                <select name="fav_lang">
+                    <option value="c++">C++</option>
+                    <option value="rust">Rust</option>
+                    <option value="haskell">Haskell</option>
+                    <option value="python">Python</option>
+                    <option value="elixir">Elixir</option>
+                    <option value="scala">Scala</option>
+                </select><br>
+                <label for="bio">Биография:</label><br>
+                <textarea name="bio" cols="30" rows="10" id="bio">
+
+                </textarea><br>
+                <label for="agreement">
+                    с контрактом ознакомлен(а)
+                </label><br>
+                <input type="checkbox" name="agreement" id="agreement"><br>
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+        </div>
+        <div id="result"></div>
+    </section>
+</body>
+
+</html>
+
+<script>
+    //let url = `${window.location.protocol}://${window.location.host}:${window.location.port}/back/`;
+    let url = "/back/"
+    let form = document.querySelector('form');
+    form.addEventListener('submit', handleSubmit);
+
+    function handleSubmit(event) {
+        let formData = new FormData(form);
+        let data = Object.fromEntries(formData);
+        let jsonData = JSON.stringify(data);
+        console.log(jsonData);
+        event.preventDefault();
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            // Create a new text node and append it to the 'result' element
+            const resultElement = document.getElementById('result');
+            const textNode = document.createTextNode(JSON.stringify(result));
+            resultElement.appendChild(textNode);
+            const form = document.getElementById('form');
+        })
+        .catch(err => console.log(err));
+    }
+
+</script>

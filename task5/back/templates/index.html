@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <section>
+        <div class="content-block flex-item-3" id="form">
+            <h2>Форма</h2>
+            <form method="post" action="/">
+                <label for="name">ФИО:</label>
+                <input type="text" id="name" name="name" value="{{ data.name }}" class="{% if 'name' in errors %}wrong{% endif %}">
+                {% if 'name' in errors %}
+                    <div class="error">
+                        {{ errors.name }}
+                    </div>
+                {% endif %}
+
+                <label for="number">Телефон:</label>
+                <input type="tel" id="number" name="number" value="{{ data.number }}" class="{% if 'number' in errors %}wrong{% endif %}">
+                {% if 'number' in errors %}
+                    <div class="error">
+                        {{ errors.number }}
+                    </div>
+                {% endif %}
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ data.email }}" class="{% if 'email' in errors %}wrong{% endif %}">
+                {% if 'email' in errors %}
+                    <div class="error">
+                        {{ errors.email }}
+                    </div>
+                {% endif %}
+
+                <label for="birthday">День рождения:</label>
+                <input type="date" id="birthday" name="birthday" value="{{ data.birthday }}" class="{% if 'birthday' in errors %}wrong{% endif %}">
+                {% if 'birthday' in errors %}
+                    <div class="error">
+                        {{ errors.birthday }}
+                    </div>
+                {% endif %}
+
+                <fieldset>
+                    <legend>Пол:</legend>
+                    <input type="radio" name="sex" id="male" class="{% if 'sex' in errors %}wrong{% endif %}"><label for="male">Муж.</label>
+                    <input type="radio" name="sex" id="female" class="{% if 'sex' in errors %}wrong{% endif %}"><label for="female">Жен.</label>
+                </fieldset>
+                {% if 'sex' in errors %}
+                    <div class="error">
+                        {{ errors.sex }}
+                    </div>
+                {% endif %}
+
+                <label for="fav_lang">Любимый язык программирования:</label>
+                <select name="fav_lang" id="fav_lang" class="{% if 'fav_lang' in errors %}wrong{% endif %}">
+                    <option value="c++">C++</option>
+                    <option value="rust">Rust</option>
+                    <option value="haskell">Haskell</option>
+                    <option value="python">Python</option>
+                    <option value="elixir">Elixir</option>
+                    <option value="scala">Scala</option>
+                </select>
+                {% if 'fav_lang' in errors %}
+                    <div class="error">
+                        {{ errors.fav_lang }}
+                    </div>
+                {% endif %}
+
+                <label for="bio">Биография:</label>
+                <textarea name="bio" cols="30" rows="10" id="bio" class="{% if 'bio' in errors %}wrong{% endif %}"></textarea>
+                {% if 'bio' in errors %}
+                    <div class="error">
+                        {{ errors.bio }}
+                    </div>
+                {% endif %}
+
+                <label for="agreement">
+                    с контрактом ознакомлен(а)
+                </label>
+                <input type="checkbox" name="agreement" id="agreement">
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+        <div id="result"></div>
+    </section>
+</body>
+
+</html>
+
+
+<style>
+/* Общие стили */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+* {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    color: #333;
+}
+
+body {
+    background-color: #FAFAFA;
+}
+
+.header,.footer {
+    background-color: #007BFF;
+    color: white;
+}
+
+.content-block {
+    background-color: #E0F7FA;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+
+label, input[type="submit"], button, select, textarea {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+
+input[type="submit"], button {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    margin-bottom: 0.5em; /* Уменьшение отступа снизу у заголовка */
+}
+
+label {
+    margin-top: 0; /* Удаление верхнего отступа у меток */
+}
+
+.error {
+    color: red;
+    margin-top: 0.25em; /* Небольшой отступ сверху для лучшего разделения */
+}
+
+.wrong {
+    border-color: red; /* Красный цвет границы для полей с ошибками */
+}
+
+
+/* Адаптивность */
+@media screen and (min-width: 960px) {
+  .content-block {
+        width: 50vw;
+        margin: 20px auto;
+    }
+
+    form {
+        gap: 1em;
+    }
+}
+
+</style>

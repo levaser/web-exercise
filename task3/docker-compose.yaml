@@ -1,0 +1,30 @@
+version: "3"
+services:
+  db:
+    image: mariadb:10.4
+    command: --init-file /docker-entry-point-initdb.d/db.sql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=my_db
+      - MYSQL_USER=my_user
+      - MYSQL_PASSWORD=123
+      - MYSQL_ROOT_HOST='%'
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+      - ./initdb:/docker-entry-point-initdb.d
+    ports:
+      - "3306:3306"
+  back:
+    image: back
+    build: ./back
+    command: python server.py
+    restart: always
+    ports:
+      - "3307:3307"
+  front:
+    image: front
+    build: ./front
+    restart: always
+    ports:
+      - "8080:80"
